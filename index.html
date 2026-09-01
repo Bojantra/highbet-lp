@@ -72,7 +72,7 @@
     top:0;left:0;right:0;
     z-index:20;
   }
-  .navbar .logo img{width:160px;display:block;}
+  .navbar .logo img{width:120px;display:block;}
 
   .nav-links{
     display:flex;
@@ -273,9 +273,10 @@
     max-width:min(92vw,660px);
     padding:clamp(1.5rem,2.6vw,2.9rem) clamp(1.6rem,2.8vw,3.2rem);
     border-radius:24px;
-    background:linear-gradient(160deg,rgba(12, 18, 40, 0),rgba(8, 12, 26, 0));
-    -webkit-backdrop-filter:blur(22px) saturate(125%);
-    border:1px solid rgba(255, 255, 255, 0);
+    /* NOTE: no backdrop-filter here — on iOS Safari a backdrop-filter on this
+       box renders the headline/text inside it blurry. If the frosted-glass
+       look is wanted back, put the blur on a ::before layer behind the text,
+       not on the element that contains the text. */
   }
   .eyebrow{
     margin:0 0 .95em;
@@ -417,8 +418,8 @@
          full viewport width. If the copy + cards push the hero taller than
          that, `cover` keeps the artwork spanning the whole box (cropping a
          little off the sides) instead of leaving a bare strip at the bottom. */
-      --hero-image:url("https://raw.githubusercontent.com/Bojantra/highbet-lp/refs/heads/main/Bg-lights-mobile.jpg");
-      min-height:calc(100vw * 1668 / 1106);
+      --hero-image:url("https://raw.githubusercontent.com/Bojantra/highbet-lp/refs/heads/main/Bg-lights-mobile-v1.jpg");
+      min-height:calc(105vw * 1668 / 1106);
       background-size:cover,auto;
       background-position:top center,center;
     }
