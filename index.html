@@ -13,13 +13,19 @@
     --navy-2:#000823;
     --card-bg:#0a1024;
     --yellow:#ffc01e;
-    --blue:#3b9bff;
+    --blue:#2a629d;
     --blue-btn-1:#1f8bff;
     --blue-btn-2:#0c6fe6;
     --text-dim:rgba(255,255,255,.62);
     --maxw:2400px;
     --pad-x:clamp(18px,5.5vw,120px);
     --font-sub:"Special Gothic","Zalando Sans Expanded","Segoe UI",sans-serif;
+
+    /* Highbet navbar / sections palette — kept separate so the hero is untouched */
+    --hb-navy:#1d4499;
+    --hb-blue:#0394ed;
+    --hb-white:#ffffff;
+    --hb-font:"Zalando Sans Expanded","Segoe UI",sans-serif;
   }
 
   *,*::before,*::after{box-sizing:border-box;}
@@ -32,7 +38,18 @@
     overflow-x:hidden;
   }
   a{text-decoration:none;color:inherit;}
-  img{max-width:100%;display:block;}
+  img{max-width:100%;height:auto;display:block;}
+
+  /* Zero-specificity reset for the imported navbar + sections + footer, matching
+     the source's `* { margin:0; padding:0 }`. `:where()` keeps it from ever
+     overriding the real rules below, or anything in the hero. */
+  :where(
+    .navbar, .navbar *, .mobile-menu, .mobile-menu *,
+    .gradient-bar, .gradient-bar *,
+    .easy-start, .easy-start *,
+    .sports-offer, .sports-offer *,
+    .footer-rows, .footer-rows *
+  ){ margin:0; padding:0; }
 
   .container{
     max-width:var(--maxw);
@@ -40,64 +57,177 @@
     padding-inline:var(--pad-x);
   }
 
-  /* ---------- Header ---------- */
-  .site-header{
-    position:relative;
-    z-index:3;
-    background:var(--navy-2);
-  }
-  .site-header .container{
+  /* ════════════════════════════
+     NAVBAR (from Highbet)
+  ════════════════════════════ */
+  .navbar{
+    width:100%;
+    
     display:flex;
     align-items:center;
-    justify-content:space-between;
-    gap:16px;
-    min-height:76px;
+    padding:0 5rem;
+    height:68px;
+    background:transparent;      /* no header colour — floats over the hero */
+    position:absolute;           /* out of flow, so it doesn't push the hero / bg image down */
+    top:0;left:0;right:0;
+    z-index:20;
   }
-  .logo{
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    font-weight:900;
-    font-size:1.35rem;
-    letter-spacing:.02em;
-    text-transform:uppercase;
-    color:#fff;
-  }
-  .logo svg{width:26px;height:26px;flex:none;}
-  .logo b{color:var(--yellow);font-weight:900;}
+  .navbar .logo img{width:160px;display:block;}
 
-  .auth{
+  .nav-links{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    margin-left:48px;
+    flex:1;
+
+  }
+  .nav-link{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    text-decoration:none;
+    color:#fff;
+    font-weight:600;
+    font-size:14px;
+    padding:8px 14px;
+    border-radius:8px;
+    transition:all .2s;
+    white-space:nowrap;
+  }
+  .nav-link svg{width:16px;height:16px;flex-shrink:0;}
+  .nav-link:hover{color:var(--hb-white);background:rgba(255,255,255,.06);}
+  .nav-link.active{color:#fff;}
+
+  .nav-right{
     display:flex;
     align-items:center;
     gap:12px;
+    margin-left:auto;
+    flex-shrink:0;
   }
-  .btn{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:800;
-    font-size:.95rem;
-    letter-spacing:.03em;
-    padding:.66em 1.35em;
-    border-radius:9px;
-    border:1px solid transparent;
+  .btn-signin{
+    background:rgba(255,255,255,.088);
+    border:1px solid rgba(255,255,255,.35);
+    color:#fff;
+    padding:8px 20px;
+    border-radius:999px;
+    font-family:var(--hb-font);
+    font-weight:600;
+    font-size:14px;
     cursor:pointer;
-    transition:transform .15s ease,box-shadow .15s ease,background .15s ease,border-color .15s ease;
-    white-space:nowrap;
+    transition:.2s;
   }
-  .btn-ghost{
-    background:transparent;
-    border-color:rgba(255,255,255,.28);
+  .btn-signin:hover{border-color:var(--hb-blue);color:var(--hb-blue);}
+  .btn-signup{
+    background:#027fd0;
+    border:none;
     color:#fff;
+    padding:9px 22px;
+    border-radius:999px;
+    font-family:var(--hb-font);
+    font-weight:700;
+    font-size:14px;
+    cursor:pointer;
+    transition:.2s;
   }
-  .btn-ghost:hover{border-color:rgba(255,255,255,.65);}
-  .btn-primary{
-    background:linear-gradient(180deg,var(--blue-btn-1),var(--blue-btn-2));
+  .btn-signup:hover{background:#027fd0;}
+
+  .hamburger{
+    display:none;
+    flex-direction:column;
+    gap:5px;
+    background:none;
+    border:none;
+    cursor:pointer;
+    padding:6px;
+    margin-left:auto;
+  }
+  .hamburger span{
+    width:24px;height:2px;
+    background:#fff;
+    display:block;
+    border-radius:2px;
+    transition:transform .3s,opacity .3s;
+    transform-origin:center;
+  }
+  .hamburger span:nth-child(2){width:16px;}
+  .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .hamburger.open span:nth-child(2){opacity:0;}
+  .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+  /* Mobile drawer */
+  .mobile-menu{
+    display:none;
+    position:fixed;
+    top:68px;left:0;right:0;bottom:0;
+    background:#000823;
+    z-index:999;
+    flex-direction:column;
+    padding:8px 0 32px;
+    overflow-y:auto;
+    transform:translateX(-100%);
+    transition:transform .35s cubic-bezier(.4,0,.2,1);
+  }
+  .mobile-menu.open{transform:translateX(0);}
+  .mobile-nav-link{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:16px 28px;
+    text-decoration:none;
+    color:rgba(255,255,255,.7);
+    font-size:15px;
+    font-weight:600;
+    border-bottom:1px solid rgba(255,255,255,.07);
+    transition:.2s;
+  }
+  .mobile-nav-link:hover{color:var(--hb-white);background:rgba(255,255,255,.04);}
+  .mobile-nav-link.active{color:var(--hb-blue);border-left:3px solid var(--hb-blue);padding-left:25px;}
+  .mobile-nav-link svg{width:20px;height:20px;opacity:.75;flex-shrink:0;}
+  .mobile-actions{
+    display:flex;
+    flex-direction:column;
+    gap:0;
+    margin-top:auto;
+  }
+  .mobile-actions a{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    padding:20px 24px 0;
+    margin-top:auto;
+  }
+  .mobile-btn-signin{
+    background:#ffffff33;
+    border:1px solid rgba(255,255,255,.15);
     color:#fff;
-    box-shadow:0 8px 20px rgba(12,111,230,.35);
+    font-family:var(--hb-font);
+    font-size:15px;
+    font-weight:700;
+    padding:14px;
+    border-radius:12px;
+    cursor:pointer;
   }
-  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 12px 24px rgba(12,111,230,.5);}
-  .btn:focus-visible{outline:2px solid var(--yellow);outline-offset:2px;}
+  .mobile-btn-signup{
+    background:#00bbff;
+    border:none;
+    color:#fff;
+    font-family:var(--hb-font);
+    font-size:15px;
+    font-weight:700;
+    padding:14px;
+    border-radius:12px;
+    cursor:pointer;
+  }
+
+  @media (max-width:900px){
+    .navbar{padding:0 2rem;}
+    .nav-links{display:none;}
+    .nav-right{display:none;}
+    .hamburger{display:flex;}
+    .mobile-menu{display:flex;}
+  }
 
   /* ---------- Hero ---------- */
   .hero{
@@ -109,7 +239,10 @@
        banner is exactly as tall as the image and `contain` fills it
        edge-to-edge. clamp() keeps it sane on tiny / huge screens. */
     min-height:clamp(460px,37.2vw,985px);
-    padding-block:clamp(24px,3vw,56px);
+    /* extra top padding clears the absolute navbar; padding doesn't move the
+       background image, so the artwork still starts at the very top. */
+    padding-top:calc(68px + clamp(24px,3vw,56px));
+    padding-bottom:clamp(24px,3vw,56px);
     /* Swap the artwork here (keep the file next to this HTML). */
     --hero-image:url("backgrond-desktop.png");
     background-color:var(--navy-1);
@@ -124,7 +257,7 @@
   }
 
   .hero-inner{
-    
+
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -231,7 +364,7 @@
   .offer-head{margin:0 0 .55em;}
   .offer-cat{
     display:block;
-    color:var(--blue);
+    color:#0c95fb;
     font-weight:800;
     font-size:1.02em;
     line-height:1.15;
@@ -278,13 +411,14 @@
     :root{--pad-x:clamp(12px,4vw,24px);}
     .hero{
       align-items:center;
-      /* Portrait artwork for phones (1106 x 1668). The hero's min-height is
-         locked to the image's exact aspect ratio, so `contain` renders it
-         at the full viewport width with no side letterboxing and nothing
-         cropped. The copy + cards sit on top. */
+      /* Portrait artwork for phones (1106 x 1668). min-height locks the hero
+         to the image's aspect ratio, so at that height `cover` fills the
+         full viewport width. If the copy + cards push the hero taller than
+         that, `cover` keeps the artwork spanning the whole box (cropping a
+         little off the sides) instead of leaving a bare strip at the bottom. */
       --hero-image:url("Bg-lights-mobile.png");
       min-height:calc(100vw * 1668 / 1106);
-      background-size:contain,auto;
+      background-size:cover,auto;
       background-position:top center,center;
     }
     .hero-inner{
@@ -298,7 +432,7 @@
     }
     .hero{
         align-items: start;
-        
+
     }
     .hero-copy{
       flex:0 0 auto;
@@ -319,33 +453,461 @@
     }
   }
 
-  /* Header: shrink the brand + auth buttons so they never overflow. */
-  @media (max-width:560px){
-    .site-header .container{min-height:64px;}
-    .logo{font-size:1.05rem;gap:7px;}
-    .logo svg{width:20px;height:20px;}
-    .btn{padding:.55em 1em;font-size:.85rem;}
-    .auth{gap:8px;}
+  /* ════════════════════════════
+     LICENSE / FEATURE BAR (from Highbet)
+  ════════════════════════════ */
+  .gradient-bar{
+    height:40px;
+    border-radius:1px;
+    background:linear-gradient(164deg,#00bbff 0%,#0077ff 100%);
+    display:flex;
+    font-size:.9rem;
+    gap:2rem;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    font-weight:700;
+    font-family:var(--hb-font);
+    letter-spacing:1px;
+  }
+
+  /* ════════════════════════════
+     SECTION: IT'S EASY TO START (from Highbet)
+  ════════════════════════════ */
+  .easy-start{
+    background:linear-gradient(180deg,#071a38 0%,#050f24 100%);
+    padding:48px 16px 56px;
+    text-align:center;
+  }
+  .easy-start h2{
+    font-family:var(--hb-font);
+    font-size:clamp(26px,6vw,38px);
+    font-weight:900;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:#fff;
+    margin-bottom:6px;
+  }
+  .subtitle-tag{
+    font-family:var(--hb-font);
+    font-size:clamp(10px,2.5vw,13px);
+    font-weight:700;
+    letter-spacing:.15em;
+    text-transform:uppercase;
+    color:#f5c518;
+    margin-bottom:36px;
+  }
+  .steps-row{
+    display:flex;
+    justify-content:center;
+    align-items:stretch;
+    gap:clamp(16px,4vw,32px);
+    flex-wrap:nowrap;
+    max-width:820px;
+    margin:0 auto;
+    position:relative;
+  }
+  .steps-row::before{
+    content:"";
+    position:absolute;
+    top:clamp(52px,11vw,64px);
+    left:16.6%;
+    right:16.6%;
+    height:2px;
+    background:linear-gradient(90deg,
+      rgba(3,148,237,0) 0%,
+      rgba(3,148,237,.55) 15%,
+      rgba(3,148,237,.55) 85%,
+      rgba(3,148,237,0) 100%);
+    z-index:0;
+  }
+  .step-item{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:14px;
+    flex:1;
+    min-width:100px;
+    max-width:190px;
+    position:relative;
+    z-index:1;
+    padding:24px 14px 26px;
+    background:rgba(255,255,255,.03);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:16px;
+    transition:transform .25s ease,border-color .25s ease,background-color .25s ease,box-shadow .25s ease;
+  }
+  .step-item:hover{
+    transform:translateY(-4px);
+    border-color:rgba(3,148,237,.5);
+    background:rgba(255,255,255,.055);
+    box-shadow:0 14px 30px rgba(0,0,0,.3);
+  }
+  .step-icon-wrap{
+    position:relative;
+    width:clamp(64px,16vw,88px);
+    height:clamp(64px,16vw,88px);
+  }
+  .step-icon-box{
+    width:100%;
+    height:100%;
+    background:linear-gradient(164deg,#00bbff 0%,#0077ff 100%);
+    border-radius:16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    box-shadow:0 8px 20px rgba(3,148,237,.4);
+  }
+  .step-number{
+    position:absolute;
+    top:-8px;right:-8px;
+    width:24px;height:24px;
+    background:#ffd700;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:var(--hb-font);
+    font-size:12px;
+    font-weight:800;
+    color:#03153b;
+    border:2px solid #050f24;
+    z-index:2;
+  }
+  .step-label{
+    font-family:var(--hb-font);
+    font-size:clamp(12px,3vw,15px);
+    font-weight:700;
+    text-transform:uppercase;
+    color:#fff;
+    text-align:center;
+    letter-spacing:.03em;
+  }
+  .step-desc{
+    font-size:clamp(12px,2.5vw,14px);
+    color:#8a9bbf;
+    text-align:center;
+    line-height:1.5;
+  }
+
+  /* ════════════════════════════
+     SECTION: SPORTS WELCOME OFFER (from Highbet)
+  ════════════════════════════ */
+  .sports-offer{
+    background:linear-gradient(180deg,#050f24 0%,#071530 100%);
+    padding:clamp(40px,6vw,64px) 20px;
+  }
+  .sports-offer-inner{
+    max-width:860px;
+    margin:0 auto;
+  }
+  .sports-offer h2{
+    font-family:var(--hb-font);
+    font-size:clamp(26px,6vw,38px);
+    font-weight:900;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:#fff;
+    text-align:center;
+    margin-bottom:14px;
+  }
+  .sports-offer-intro{
+    font-size:clamp(13px,2.5vw,15px);
+    color:#c9d4e8;
+    line-height:1.6;
+    text-align:center;
+    max-width:700px;
+    margin:0 auto 40px;
+  }
+  .sports-offer h3{
+    font-family:var(--hb-font);
+    font-size:clamp(15px,3vw,18px);
+    font-weight:800;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    color:#fff;
+    margin-bottom:16px;
+  }
+  .qualify-block{margin-bottom:40px;}
+  .qualify-list{
+    list-style:none;
+    padding:0;
+    margin:0;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .qualify-list li{
+    position:relative;
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:10px;
+    padding:14px 16px 14px 44px;
+    font-size:clamp(12.5px,2.3vw,14px);
+    color:#c9d4e8;
+    line-height:1.5;
+  }
+  .qualify-list li::before{
+    content:"\2713";
+    position:absolute;
+    left:15px;
+    top:13px;
+    color:#00bbff;
+    font-weight:800;
+  }
+  .key-terms-block{margin-bottom:32px;}
+  .key-terms-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+  }
+  .key-term-card{
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:12px;
+    padding:16px 14px;
+    text-align:center;
+    transition:border-color .25s ease,background-color .25s ease;
+  }
+  .key-term-card:hover{
+    border-color:rgba(3,148,237,.45);
+    background:rgba(255,255,255,.06);
+  }
+  .key-term-label{
+    font-family:var(--hb-font);
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:#8a9bbf;
+    margin-bottom:6px;
+  }
+  .key-term-value{
+    font-family:var(--hb-font);
+    font-size:clamp(13px,2.6vw,15px);
+    font-weight:800;
+    color:#00bbff;
+    line-height:1.3;
+  }
+  .terms-accordion{
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:14px;
+    background:rgba(255,255,255,.03);
+    overflow:hidden;
+  }
+  .terms-accordion summary{
+    cursor:pointer;
+    list-style:none;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:18px 22px;
+    font-family:var(--hb-font);
+    font-weight:800;
+    font-size:clamp(12px,2.6vw,14px);
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:#fff;
+  }
+  .terms-accordion summary::-webkit-details-marker{display:none;}
+  .terms-accordion summary::after{
+    content:"+";
+    flex-shrink:0;
+    font-size:20px;
+    line-height:1;
+    color:#00bbff;
+    transition:transform .25s ease;
+  }
+  .terms-accordion[open] summary{border-bottom:1px solid rgba(255,255,255,.1);}
+  .terms-accordion[open] summary::after{transform:rotate(45deg);}
+  .terms-content{
+    padding:20px 22px 26px;
+    max-height:420px;
+    overflow-y:auto;
+    font-size:12.5px;
+    line-height:1.7;
+    color:#8a9bbf;
+  }
+  .terms-content h4{
+    font-family:var(--hb-font);
+    font-size:13px;
+    font-weight:800;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    color:#fff;
+    margin:18px 0 6px;
+  }
+  .terms-content h4:first-child{margin-top:0;}
+  .terms-content p{margin-bottom:10px;}
+  .terms-content ul{list-style:disc;padding-left:20px;margin:0 0 10px;}
+  .terms-content li{margin-bottom:5px;}
+
+  /* ════════════════════════════
+     FOOTER (from Highbet)
+  ════════════════════════════ */
+  .footer-rows{
+    background:#0a1f4a;
+    color:#fff;
+    font-size:12px;
+  }
+  .footer-main{
+    max-width:1600px;
+    margin:0 auto;
+    padding:32px 20px 28px;
+    display:grid;
+    grid-template-columns:minmax(0,2.1fr) repeat(3,minmax(0,1.2fr));
+    gap:32px;
+  }
+  .footer-logo-block{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .footer-logo-block img{
+    max-width:240px;
+    width:100%;
+    height:auto;
+    display:block;
+  }
+  .footer-heading{
+    font-size:14px;
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  .footer-nav{
+    list-style:none;
+    padding:0;
+    margin:0;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+  }
+  .footer-link{
+    color:#fff;
+    text-decoration:none;
+    font-size:13px;
+  }
+  .footer-link:hover{text-decoration:underline;}
+  .footer-badges-row{
+    background:#091f4a;
+    padding:24px 16px 30px;
+  }
+  .footer-badges-logos{
+    max-width:700px;
+    margin:0 auto;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:16px;
+  }
+  .footer-badges-logos img{max-height:50px;width:auto;}
+  .footer-payments-row{
+    background:#091f4a;
+    padding:18px 16px 28px;
+  }
+  .footer-payments{
+    max-width:1200px;
+    margin:0 auto;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:10px 16px;
+  }
+  .footer-payments img{max-height:45px;width:auto;}
+  .footer-copy-row{
+    background:#0a1f4a;
+    padding:22px 16px 28px;
+  }
+  .footer-copy{
+    max-width:1500px;
+    margin:0 auto;
+    font-size:12px;
+    line-height:1.6;
+  }
+  .footer-copy a{color:#fff;}
+
+  /* ── Imported-section responsive ── */
+  @media (max-width:768px){
+    .gradient-bar{font-size:.55rem;gap:8px;}
+    .easy-start{padding:40px 20px 48px;}
+    .steps-row{
+      flex-direction:column;
+      align-items:stretch;
+      gap:16px;
+      max-width:380px;
+    }
+    .steps-row::before{display:none;}
+    .step-item{
+      flex-direction:row;
+      align-items:center;
+      gap:16px;
+      width:100%;
+      max-width:none;
+      padding:14px 16px;
+      text-align:left;
+    }
+    .step-item:not(:last-child)::after{
+      content:"";
+      position:absolute;
+      left:44px;
+      top:100%;
+      width:2px;
+      height:16px;
+      background:linear-gradient(180deg,rgba(3,148,237,.55),rgba(3,148,237,.05));
+    }
+    .step-icon-wrap{width:56px;height:56px;flex-shrink:0;}
+    .step-content{flex:1;min-width:0;}
+    .step-label,.step-desc{text-align:left;}
+    .step-label{margin-bottom:3px;}
+  }
+
+  @media (max-width:900px){
+    .footer-main{grid-template-columns:repeat(2,minmax(0,1fr));}
+  }
+  @media (max-width:600px){
+    .footer-main{grid-template-columns:1fr;gap:24px;}
+    .key-terms-grid{grid-template-columns:repeat(2,1fr);}
+  }
+  @media (max-width:400px){
+    .key-terms-grid{grid-template-columns:1fr;}
   }
 </style>
 </head>
 <body>
 
-  <header class="site-header">
-    <div class="container">
-      <a class="logo" href="#" aria-label="AimHigh home">
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M12 2 3 21l9-5 9 5L12 2Z" fill="#ffc01e"/>
-        </svg>
-        <span>AIM<b>HIGH</b></span>
-      </a>
+  <!-- ══ NAVBAR ══ -->
+  <nav class="navbar">
+    <a href="https://www.highbet.co.uk/promotions/new-sports-welcome-offer" class="logo">
+      <img src="https://promo.highbet.com/img/images/Highbet-Logo.png" alt="Highbet">
+    </a>
 
-      <nav class="auth" aria-label="Account">
-        <a class="btn btn-ghost" href="#signin">Sign In</a>
-        <a class="btn btn-primary" href="#signup">Sign Up</a>
-      </nav>
+    <div class="nav-right">
+      <a href="https://www.highbet.co.uk/promotions/new-sports-welcome-offer?accounts=%2A&login=%2A">
+        <button class="btn-signin">Log In</button>
+      </a>
+      <a href="https://www.highbet.co.uk/promotions/new-sports-welcome-offer?accounts=%2A&register=%2A">
+        <button class="btn-signup">Sign Up</button>
+      </a>
     </div>
-  </header>
+
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile drawer -->
+  <div class="mobile-menu" id="mobileMenu" style="overflow: hidden">
+    <div class="mobile-actions">
+      <a href="https://www.highbet.co.uk/promotions/new-sports-welcome-offer?accounts=%2A&login=%2A">
+        <button class="mobile-btn-signin">Log in</button>
+      </a>
+      <a href="https://www.highbet.co.uk/promotions/new-sports-welcome-offer?accounts=%2A&register=%2A">
+        <button class="mobile-btn-signup">Sign Up</button>
+      </a>
+    </div>
+  </div>
 
   <main>
     <section class="hero">
@@ -389,7 +951,336 @@
 
       </div>
     </section>
+
+    <!-- ══ LICENSE / FEATURE BAR ══ -->
+    <div class="gradient-bar" style="white-space: nowrap">
+      <p>🔐 UK LICENSED</p>
+      <p>🔨 BET BUILDER</p>
+      <p>⚡ ACCA BOOST</p>
+    </div>
+
+    <!-- ══ SECTION: IT'S EASY TO START ══ -->
+    <section class="easy-start">
+      <h2 style="margin-top: 4rem">It's Easy to Start</h2>
+      <p class="subtitle-tag">Claim Your Welcome Bonus in 3 Easy Steps</p>
+
+      <div class="steps-row">
+        <div class="step-item">
+          <div class="step-icon-wrap">
+            <div class="step-icon-box">
+              <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+                <path fill="currentColor" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4Zm0 2c-3.33 0-6 1.34-6 3v1.5c0 .83.67 1.5 1.5 1.5h9c.83 0 1.5-.67 1.5-1.5V17c0-1.66-2.67-3-6-3Z"></path>
+              </svg>
+            </div>
+            <div class="step-number">1</div>
+          </div>
+          <div class="step-content">
+            <div class="step-label">Sign Up With Highbet</div>
+            <div class="step-desc">Create your account and opt in to the Sports Welcome Offer.</div>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-icon-wrap">
+            <div class="step-icon-box">
+              <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+                <path fill="currentColor" d="M12 2C6.48 2 2 4.69 2 8c0 3.31 4.48 6 10 6s10-2.69 10-6c0-3.31-4.48-6-10-6Zm0 10c-4.41 0-8-1.79-8-4s3.59-4 8-4 8 1.79 8 4-3.59 4-8 4Zm0 3c-4.05 0-7.45-1.23-9-3.03V16c0 3.31 4.48 6 10 6s10-2.69 10-6v-4.03C19.45 13.77 16.05 15 12 15Z"></path>
+              </svg>
+            </div>
+            <div class="step-number">2</div>
+          </div>
+          <div class="step-content">
+            <div class="step-label">Bet £10 <br>Or More</div>
+            <div class="step-desc">Deposit at least £10 and place your first qualifying sports bet.</div>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-icon-wrap">
+            <div class="step-icon-box">
+              <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+                <path fill="currentColor" d="M20 6h-2.18A3 3 0 0 0 15 3a2.99 2.99 0 0 0-2.65 1.64L12 5.35l-.35-.71A2.99 2.99 0 0 0 9 3a3 3 0 0 0-2.82 3H4a2 2 0 0 0-2 2v2c0 .55.45 1 1 1h1v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7h1c.55 0 1-.45 1-1V8a2 2 0 0 0-2-2ZM9 5a1 1 0 0 1 0 2H7a1 1 0 0 1 0-2h2Zm8 0a1 1 0 0 1 0 2h-2a1 1 0 0 1 0-2h2Zm-1 12H8v-4h8v4Z"></path>
+              </svg>
+            </div>
+            <div class="step-number">3</div>
+          </div>
+          <div class="step-content">
+            <div class="step-label">Claim Your Rewards</div>
+            <div class="step-desc">Get £30 in Free Bets, then unlock up to £60 as your Free Bets win.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ SECTION: SPORTS WELCOME OFFER ══ -->
+    <section class="sports-offer">
+      <div class="sports-offer-inner">
+        <h2>Highbet Sports Welcome Offer</h2>
+        <p class="sports-offer-intro">
+          Make your first deposit of £10 and place a qualifying bet on any sport. Once
+          settled, you'll receive £30 in free bets — split across three sport-specific
+          tokens of £10 each. Free bets are non-withdrawable and each carries individual
+          restrictions on minimum odds and selections.
+        </p>
+
+        <div class="qualify-block">
+          <h3>How to Qualify</h3>
+          <ul class="qualify-list">
+            <li>Opt in to this promotion and deposit via Debit Card only (no e-wallets or credit cards).</li>
+            <li>Place your first bet of £10 at minimum odds of 1/1 (2.0) on any sports market within 7 days of registering.</li>
+            <li>BetBuilder bets and bets using Cash Out do not qualify.</li>
+            <li>Free bets credited after qualifying bet settles — must be activated within 7 days.</li>
+          </ul>
+        </div>
+
+        <div class="key-terms-block">
+          <h3>Key Terms — Please Read Before Opting In</h3>
+          <div class="key-terms-grid">
+            <div class="key-term-card">
+              <div class="key-term-label">Free bets are</div>
+              <div class="key-term-value">Non-withdrawable</div>
+            </div>
+            <div class="key-term-card">
+              <div class="key-term-label">Free bet stakes are</div>
+              <div class="key-term-value">Not included in returns</div>
+            </div>
+            <div class="key-term-card">
+              <div class="key-term-label">Max payout per free bet</div>
+              <div class="key-term-value">£100</div>
+            </div>
+            <div class="key-term-card">
+              <div class="key-term-label">Free bets expire</div>
+              <div class="key-term-value">7 days after the qualifying bet</div>
+            </div>
+            <div class="key-term-card">
+              <div class="key-term-label">Debit Card only</div>
+              <div class="key-term-value">No e-wallets or credit cards</div>
+            </div>
+            <div class="key-term-card">
+              <div class="key-term-label">BetBuilder &amp; Cash Out</div>
+              <div class="key-term-value">Bets do not qualify</div>
+            </div>
+            <div class="key-term-card">
+              <div class="key-term-label">Only one Welcome Offer</div>
+              <div class="key-term-value">Sports or Casino, not both</div>
+            </div>
+            <div class="key-term-card">
+              <div class="key-term-label">Free bets</div>
+              <div class="key-term-value">Cannot be used in Casino</div>
+            </div>
+            <div class="key-term-card">
+              <div class="key-term-label">New customers only</div>
+              <div class="key-term-value">Existing accounts not eligible</div>
+            </div>
+          </div>
+        </div>
+
+        <details class="terms-accordion">
+          <summary>Terms &amp; Conditions</summary>
+          <div class="terms-content">
+            <p>The following terms and conditions apply to the Sports Welcome Offer. Participation in this Promotion shall constitute your complete acceptance of the Terms below.</p>
+
+            <h4>Promotion Period</h4>
+            <p>The Promotion runs from 14:00 UK Time on August 3, 2026, until further notice.</p>
+
+            <h4>Eligibility</h4>
+            <ul>
+              <li>New verified customers only.</li>
+              <li>UK residents.</li>
+              <li>Customers aged 18 years or over.</li>
+            </ul>
+
+            <h4>Opt-In Requirement</h4>
+            <p>Customers must first opt-in to this promotion before making the qualifying bet within 7 days of your registration.</p>
+
+            <h4>How to Qualify</h4>
+            <ul>
+              <li>Min. deposit amount: £10 in a single transaction.</li>
+              <li>Deposit method: Debit Card only.</li>
+              <li>Min. stake amount: £10 with real money in one bet within 7 days of your registration.</li>
+              <li>Sport: All sports.</li>
+              <li>Market: Any market (single or multiple / pre-match or in-play/live).</li>
+              <li>Minimum odds: 1/1 (2.0).</li>
+              <li>Bet state: Any.</li>
+            </ul>
+
+            <h4>Non-Qualifying Bets</h4>
+            <p>Any bet that uses Cash Out, full or partial, Bet Boost, Enhanced Acca, Virtual Market, Special Market, or a bet placed with Bonus Funds will not count as a qualifying bet.</p>
+            <p>If any selection in the qualifying bet is abandoned, cancelled, returned or declared void, then the qualifying bet is not valid.</p>
+
+            <h4>Free Bet Details</h4>
+            <p>The free bet amount shall be credited to your account after the settlement of your qualifying bets. In the case that there are multiple bets qualifying for this promotion, the free bets will be granted when the first one is settled.</p>
+
+            <h4>Using Your Free Bets</h4>
+            <p>Upon settlement of your qualifying bet, three (3) Free Bet Tokens (Kick Off Tokens) with a total value of £30 will be credited to your account regardless of the outcome of your qualifying bet. The Free Bet Tokens must be used within 7 days of being awarded.</p>
+            <p>The three tokens are credited together as follows:</p>
+            <ul>
+              <li>Free bet value: £30 (3 x £10).</li>
+              <li>Pro Token – £10 Acca – min odds 4.0 – min 4+ legs – min odds per selection 1.30</li>
+              <li>Elite Token – £10 Acca – min odds 4.0 – min 4+ legs – min odds per selection 1.30</li>
+              <li>Champion Token – £10 Acca – min odds 4.0 – min 4+ legs – min odds per selection 1.30</li>
+            </ul>
+
+            <h4>Using Your Free Bet</h4>
+            <ul>
+              <li>If any of the initial Free Bet Tokens ("Kick Off Tokens") settles as a winning bet, you will be credited with one (1) £10 Free Bet Token ("Pro Token") after all Kick Off Tokens have expired.</li>
+              <li>If the Pro Token settles as a winning bet, you will be credited with one (1) £10 Free Bet Token ("Elite Token") after the Pro Token has expired.</li>
+              <li>If the Elite Token settles as a winning bet, you will be credited with one (1) £10 Free Bet Token ("Champion Token") after the Elite Token has expired.</li>
+              <li>The Pro Token, Elite Token and Champion Token are subject to no minimum odds or minimum selection (leg) requirements.</li>
+              <li>Each Pro Token, Elite Token and Champion Token has a maximum payout of £100 and must be used within seven (7) days of being credited to your betting account.</li>
+              <li>Free Bet Tokens have no cash value and cannot be exchanged for cash or withdrawn.</li>
+            </ul>
+
+            <h4>General Terms</h4>
+            <ul>
+              <li>By accepting and receiving the Free Bet, a client confirms to have read and agreed the promotion's terms and conditions.</li>
+              <li>Free bet stakes will not be included in any returns from the free bet. Any returns from the free bet will be added to the customer's withdrawable balance.</li>
+              <li>Cash Out is unavailable on bets placed using your free bets.</li>
+              <li>If a bet placed using a free bet is void, provided it has not expired, it will be returned to the customer's balance for use within the qualifying period.</li>
+              <li>The free bet cannot be transferred to Casino.</li>
+              <li>This Welcome Offer cannot be used in conjunction with any other promotion.</li>
+              <li>The Company reserves the right acting reasonably to withhold, restrict or cancel this offer from individual account holders in breach of these terms and conditions or in breach of our General Promotion Terms.</li>
+              <li>Highbet's General Terms &amp; Conditions, including General Promotion Terms and Sports betting rules apply.</li>
+              <li>Only one Welcome Offer may be claimed per customer. Customers may choose either the Sport Welcome Offer or the Casino Welcome Offer, but not both. If a customer opts in and qualifies for one of the offers, they will be automatically excluded from claiming the other.</li>
+              <li>All Free Bets will expire within 7 days of being credited.</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+    </section>
   </main>
+
+  <!-- ══ FOOTER ══ -->
+  <footer class="footer-rows">
+    <div class="footer-main">
+      <div class="footer-logo-block">
+        <a href="https://www.highbet.co.uk">
+          <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/8924-highbet-logo-17350306865589.svg?v=1758527146" alt="Highbet logo">
+        </a>
+      </div>
+
+      <div>
+        <div class="footer-heading">ABOUT</div>
+        <ul class="footer-nav">
+          <li><a class="footer-link" href="https://www.highbet.co.uk/about-us">About Us</a></li>
+          <li><a class="footer-link" href="https://www.highbet.co.uk/contact-us">Contact Us</a></li>
+          <li><a class="footer-link" href="https://affiliatepark.com/">Affiliate Program</a></li>
+          <li><a class="footer-link" href="https://www.highbet.co.uk/faq">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-heading">TERMS AND PRIVACY</div>
+        <ul class="footer-nav">
+          <li><a class="footer-link" href="https://www.highbet.co.uk/responsible-gambling">Responsible Gambling</a></li>
+          <li><a class="footer-link" href="https://www.highbet.co.uk/bonus-terms-and-conditions">Bonus Terms and Conditions</a></li>
+          <li><a class="footer-link" href="https://www.highbet.co.uk/sportsbook-rules">Sportsbook Rules</a></li>
+          <li><a class="footer-link" href="https://www.highbet.co.uk/bet-builder-rules">Bet Builder Rules</a></li>
+          <li><a class="footer-link" href="https://www.highbet.co.uk/games-rules">Games Rules</a></li>
+          <li><a class="footer-link" href="https://www.highbet.co.uk/general-terms-and-conditions">General Terms and Conditions</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-heading">SCORES &amp; RESULTS</div>
+        <ul class="footer-nav">
+          <li><a class="footer-link" href="https://www.highbet.co.uk/live-calendar">Live Calendar</a></li>
+          <li><a class="footer-link" href="https://www.highbet.co.uk/results">Results</a></li>
+        </ul>
+        <div class="footer-heading" style="margin-top: 14px">PRODUCTS</div>
+        <ul class="footer-nav">
+          <li><a class="footer-link" href="https://www.highbet.co.uk/in-play">In Play</a></li>
+          <li><a class="footer-link" href="https://www.highbet.co.uk/sports">Prematch</a></li>
+          <li><a class="footer-link" href="https://www.highbet.co.uk/casino">Casino</a></li>
+          <li><a class="footer-link" href="https://www.highbet.co.uk/live-casino">Live Casino</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-badges-row">
+      <div class="footer-badges-logos">
+        <a href="https://ibia.bet/" target="_blank" rel="noreferrer noopener">
+          <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5078-ibia-2-17544035190661.webp?v=1754403522" alt="IBIA">
+        </a>
+        <a href="https://www.mga.org.mt/" target="_blank" rel="noreferrer noopener">
+          <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5078-mga-3-17544033478955.webp?v=1754403352" alt="MGA">
+        </a>
+        <a href="https://www.gambleaware.org/" target="_blank" rel="noreferrer noopener">
+          <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5078-gamble-aware-2-17544031977546.webp?v=1754403201" alt="BeGambleAware">
+        </a>
+        <a href="https://madre-online.eu/" target="_blank" rel="noreferrer noopener">
+          <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5078-madre-17486903201425.webp?v=1748690323" alt="MADRE">
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-payments-row">
+      <div class="footer-payments">
+        <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-apple-pay-logo-1-1750236268859.webp?v=1750236357" alt="Apple Pay">
+        <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-g-pay-new-17613143756626.webp?v=1761314379" alt="Google Pay">
+        <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-trsulty-logo-3-17556893152738.webp?v=1755689320" alt="Trustly">
+        <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-unnamed-1-17715102134101.webp?v=1771570961" alt="Interac">
+        <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-master-card-2-17544029393907.webp?v=1754402943" alt="Mastercard">
+        <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-adyen-logo-17643983598803.webp?v=1764398384" alt="Adyen">
+        <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-visa-2-17544028449384.webp?v=1754402865" alt="Visa">
+        <a href="https://zimpler.com/" target="_blank" rel="noreferrer noopener">
+          <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-zimpler-logo-17648308890372.webp?v=1764830900" alt="Zimpler">
+        </a>
+        <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-bitcoin-3-1755689315289.webp?v=1755689320" alt="Bitcoin">
+        <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-revolut-logo-new-17492114976693.webp?v=1749211591" alt="Revolut">
+        <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-pankki-logo-new-17492114977279.webp?v=1749211591" alt="Pankki">
+        <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-danske-logo-new-17492114976751.webp?v=1749211591" alt="Danske Bank">
+        <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-rapid-new-logo-17486901467616.webp?v=1756836369" alt="Rapid">
+        <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-nordea-logo-new-17492114981262.webp?v=1749211591" alt="Nordea">
+        <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-dp-new-logo-17492115051368.webp?v=1749211592" alt="DP">
+      </div>
+    </div>
+
+    <div class="footer-copy-row">
+      <div class="footer-copy">
+        <p>
+          Highbet.com&nbsp; is operated by SCGO Ltd, a company registered in Malta with
+          registration number C45929 and having its registered address at Luxe Pavilion,
+          2nd level, Diamonds International Building, Portomaso, St Julian's STJ 4010,
+          Malta. SCGO Ltd is licensed and regulated by the Malta Gaming Authority as the
+          regulatory body responsible (Gaming Service Licence No
+          <a href="https://authorisation.mga.org.mt/verification.aspx?lang=EN&amp;company=d10daec7-dde7-441a-b9ef-2666667bf4fc&amp;details=1" target="_blank" rel="noopener noreferrer">MGA/B2C/292/2015</a>,
+          granted 23 Jun 2015 and updated 01 Aug 2018).
+        </p>
+        <p style="margin-top: 12px">
+          Under 18s are strictly forbidden from gambling on this website. Underage
+          gambling is an offence.
+        </p>
+        <p style="margin-top: 12px">
+          © Highbet.com 2026 | Highbet is committed to endorsing safer gambling among its
+          customers as well as promoting the awareness of problem gambling and improving
+          prevention, intervention and treatment. Gambling can be addictive, please play
+          responsibly. For further information on gambling addiction contact
+          <a href="http://www.begambleaware.org/" target="_blank" rel="noopener noreferrer">www.begambleaware.org</a>.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile drawer toggle
+    const hamburger = document.getElementById("hamburger");
+    const mobileMenu = document.getElementById("mobileMenu");
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener("click", () => {
+        hamburger.classList.toggle("open");
+        mobileMenu.classList.toggle("open");
+        document.body.style.overflow = mobileMenu.classList.contains("open") ? "hidden" : "";
+      });
+      document.querySelectorAll(".mobile-nav-link").forEach((l) => {
+        l.addEventListener("click", () => {
+          hamburger.classList.remove("open");
+          mobileMenu.classList.remove("open");
+          document.body.style.overflow = "";
+        });
+      });
+    }
+  </script>
 
 </body>
 </html>
