@@ -241,10 +241,9 @@
     min-height:clamp(460px,37.2vw,985px);
     /* extra top padding clears the absolute navbar; padding doesn't move the
        background image, so the artwork still starts at the very top. */
-    padding-top:calc(68px + clamp(24px,3vw,56px));
     padding-bottom:clamp(24px,3vw,56px);
     /* Swap the artwork here (keep the file next to this HTML). */
-    --hero-image:url("backgrond-desktop.png");
+    --hero-image:url("https://raw.githubusercontent.com/Bojantra/highbet-lp/refs/heads/main/backgrond-desktop.jpg");
     background-color:var(--navy-1);
     background-image:
       var(--hero-image),
@@ -410,13 +409,15 @@
   @media (max-width:768px){
     :root{--pad-x:clamp(12px,4vw,24px);}
     .hero{
+            padding-top:5rem;
+
       align-items:center;
       /* Portrait artwork for phones (1106 x 1668). min-height locks the hero
          to the image's aspect ratio, so at that height `cover` fills the
          full viewport width. If the copy + cards push the hero taller than
          that, `cover` keeps the artwork spanning the whole box (cropping a
          little off the sides) instead of leaving a bare strip at the bottom. */
-      --hero-image:url("Bg-lights-mobile.png");
+      --hero-image:url("https://raw.githubusercontent.com/Bojantra/highbet-lp/refs/heads/main/Bg-lights-mobile.jpg");
       min-height:calc(100vw * 1668 / 1106);
       background-size:cover,auto;
       background-position:top center,center;
