@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pick Your Welcome Offer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Special+Gothic&family=Zalando+Sans+Expanded:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-1:#000823;   /* matches the hero artwork's edge colour */
+    --navy-2:#000823;
+    --card-bg:#0a1024;
+    --yellow:#ffc01e;
+    --blue:#3b9bff;
+    --blue-btn-1:#1f8bff;
+    --blue-btn-2:#0c6fe6;
+    --text-dim:rgba(255,255,255,.62);
+    --maxw:2400px;
+    --pad-x:clamp(18px,5.5vw,120px);
+    --font-sub:"Special Gothic","Zalando Sans Expanded","Segoe UI",sans-serif;
+  }
+
+  *,*::before,*::after{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    font-family:"Zalando Sans Expanded","Segoe UI",system-ui,-apple-system,Roboto,sans-serif;
+    color:#fff;
+    background:var(--navy-2);
+    overflow-x:hidden;
+  }
+  a{text-decoration:none;color:inherit;}
+  img{max-width:100%;display:block;}
+
+  .container{
+    max-width:var(--maxw);
+    margin-inline:auto;
+    padding-inline:var(--pad-x);
+  }
+
+  /* ---------- Header ---------- */
+  .site-header{
+    position:relative;
+    z-index:3;
+    background:var(--navy-2);
+  }
+  .site-header .container{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    min-height:76px;
+  }
+  .logo{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-weight:900;
+    font-size:1.35rem;
+    letter-spacing:.02em;
+    text-transform:uppercase;
+    color:#fff;
+  }
+  .logo svg{width:26px;height:26px;flex:none;}
+  .logo b{color:var(--yellow);font-weight:900;}
+
+  .auth{
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:800;
+    font-size:.95rem;
+    letter-spacing:.03em;
+    padding:.66em 1.35em;
+    border-radius:9px;
+    border:1px solid transparent;
+    cursor:pointer;
+    transition:transform .15s ease,box-shadow .15s ease,background .15s ease,border-color .15s ease;
+    white-space:nowrap;
+  }
+  .btn-ghost{
+    background:transparent;
+    border-color:rgba(255,255,255,.28);
+    color:#fff;
+  }
+  .btn-ghost:hover{border-color:rgba(255,255,255,.65);}
+  .btn-primary{
+    background:linear-gradient(180deg,var(--blue-btn-1),var(--blue-btn-2));
+    color:#fff;
+    box-shadow:0 8px 20px rgba(12,111,230,.35);
+  }
+  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 12px 24px rgba(12,111,230,.5);}
+  .btn:focus-visible{outline:2px solid var(--yellow);outline-offset:2px;}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    isolation:isolate;
+    display:flex;
+    align-items:center;
+    /* 37.2vw ≈ the artwork's height/width ratio, so at full-bleed the
+       banner is exactly as tall as the image and `contain` fills it
+       edge-to-edge. clamp() keeps it sane on tiny / huge screens. */
+    min-height:clamp(460px,37.2vw,985px);
+    padding-block:clamp(24px,3vw,56px);
+    /* Swap the artwork here (keep the file next to this HTML). */
+    --hero-image:url("backgrond-desktop.png");
+    background-color:var(--navy-1);
+    background-image:
+      var(--hero-image),
+      linear-gradient(180deg,#000b2c 0%,#000820 100%);
+    /* contain = whole artwork always visible; the matching bg colour
+       makes the letterbox area blend into the image edges. */
+    background-size:contain,auto;
+    background-position:center,center;
+    background-repeat:no-repeat,no-repeat;
+  }
+
+  .hero-inner{
+    
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10rem;
+    width: 100%;
+  }
+  /* Copy block: a frosted-glass panel over the artwork, bottom-left.
+     flex-basis 0 + grow: fills the space left of the cards (capped at
+     660px) and never forces its own line until the mobile breakpoint. */
+  .hero-copy{
+    flex:1 1 0;
+    min-width:0;
+    max-width:min(92vw,660px);
+    padding:clamp(1.5rem,2.6vw,2.9rem) clamp(1.6rem,2.8vw,3.2rem);
+    border-radius:24px;
+    background:linear-gradient(160deg,rgba(12, 18, 40, 0),rgba(8, 12, 26, 0));
+    -webkit-backdrop-filter:blur(22px) saturate(125%);
+    border:1px solid rgba(255, 255, 255, 0);
+  }
+  .eyebrow{
+    margin:0 0 .95em;
+    font-family:"Zalando Sans Expanded","Segoe UI",sans-serif;
+    color:var(--yellow);
+    font-weight:900;
+    font-size:clamp(.85rem,1.35vw,1.3rem);
+    letter-spacing:.16em;
+    text-transform:uppercase;
+  }
+  .hero-title{
+    margin:0;
+    font-weight:900;
+    font-size:clamp(1.7rem,4vw,5rem);
+    line-height:1;
+    letter-spacing:-.01em;
+    text-transform:uppercase;
+  }
+  .disclaimer{
+    margin:1.25em 0 0;
+    font-family:var(--font-sub);
+    color:#ffffffe8;
+    font-size:clamp(.82rem,1.1vw,1rem);
+    letter-spacing:.04em;
+    font-weight: 400;
+  }
+
+  /* ---------- Offer cards ----------
+     NOT responsive: the pair never restacks and never changes its
+     internal layout. Everything inside is sized in `em`, and this one
+     font-size scales fluidly with the viewport, so the cards grow and
+     shrink as a unit while keeping their exact aspect ratio. */
+  .hero-offers{
+    flex:0 0 auto;
+    min-width:0;
+    display:flex;
+    gap:1.4em;
+    font-size:clamp(8px,0.95vw,24px);
+    margin-top: 1.5rem;
+  }
+
+  .offer-card{
+    width:15em;
+    aspect-ratio:355 / 500;
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+    border-radius:1em;
+    /* 2px gradient stroke: #0a82fc -> #0aaefb, linear -77deg (=167deg CSS),
+       66% opacity — from the Photoshop Stroke layer style. */
+    border:2px solid transparent;
+    background:
+      linear-gradient(var(--card-bg),var(--card-bg)) padding-box,
+      linear-gradient(167deg,rgba(10,130,252,.66) 0%,rgba(10,174,251,.66) 100%) border-box;
+    box-shadow:
+      0 0 2.6em rgba(15,150,251,.38),
+      0 1.4em 2.4em rgba(0,0,0,.45);
+    transition:transform .18s ease,box-shadow .18s ease;
+  }
+  .offer-card:hover{
+    transform:translateY(-.4em);
+    background:
+      linear-gradient(var(--card-bg),var(--card-bg)) padding-box,
+      linear-gradient(167deg,rgba(10,130,252,.95) 0%,rgba(10,174,251,.95) 100%) border-box;
+    box-shadow:
+      0 0 3.4em rgba(15,160,251,.58),
+      0 1.8em 3em rgba(0,0,0,.5);
+  }
+
+  .offer-media{
+    flex:0 0 45%;
+    background:linear-gradient(180deg,#9c9c9c,#828282);
+  }
+  .offer-media img{width:100%;height:100%;object-fit:cover;}
+
+  .offer-body{
+    flex:1 1 auto;
+    display:flex;
+    flex-direction:column;
+    /* Card is 15em (was 18.5em); scale everything in the body to match so
+       the text + button keep the same proportions inside the narrower card. */
+    font-size:.82em;
+    padding:1.25em 1.3em 1.55em;
+  }
+  .offer-head{margin:0 0 .55em;}
+  .offer-cat{
+    display:block;
+    color:var(--blue);
+    font-weight:800;
+    font-size:1.02em;
+    line-height:1.15;
+    letter-spacing:0;
+  }
+  .offer-title{
+    display:block;
+    color:#fff;
+    font-weight:800;
+    font-size:1.12em;
+    line-height:1.08;
+    letter-spacing:-.01em;
+    white-space:nowrap;
+  }
+  .offer-desc{
+    margin:0;
+    font-family:var(--font-sub);
+    color:rgba(254, 254, 254, 0.919);
+    font-size:.95em;
+    line-height:1.34;
+  }
+  .offer-btn{
+    margin-top:auto;
+    display:block;
+    text-align:center;
+    text-transform:uppercase;
+    font-weight:800;
+    font-size:.95em;
+    letter-spacing:.06em;
+    color:#fff;
+    padding:1.2em 1em ;
+    border-radius:.6em;
+    background:linear-gradient(90deg,#0e98fa 0%,#0b80fc 55%,#1279ec 100%);
+    box-shadow:
+      0 .3em .7em rgba(10,78,175,.45),
+      inset 0 1px 0 rgba(255,255,255,.22);
+    transition:filter .15s ease,transform .15s ease;
+  }
+  .offer-btn:hover{filter:brightness(1.07);transform:translateY(-1px);}
+  .offer-btn:focus-visible{outline:2px solid var(--yellow);outline-offset:2px;}
+
+  /* Mobile only: cards drop below the text, everything centred. */
+  @media (max-width:768px){
+    :root{--pad-x:clamp(12px,4vw,24px);}
+    .hero{
+      align-items:center;
+      /* Portrait artwork for phones (1106 x 1668). The hero's min-height is
+         locked to the image's exact aspect ratio, so `contain` renders it
+         at the full viewport width with no side letterboxing and nothing
+         cropped. The copy + cards sit on top. */
+      --hero-image:url("Bg-lights-mobile.png");
+      min-height:calc(100vw * 1668 / 1106);
+      background-size:contain,auto;
+      background-position:top center,center;
+    }
+    .hero-inner{
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      text-align:start;
+    }
+    .hero-inner{
+        gap:1rem
+    }
+    .hero{
+        align-items: start;
+        
+    }
+    .hero-copy{
+      flex:0 0 auto;
+      max-width:100%;
+      text-align:center;
+    }
+    .hero-title{
+        font-size: 2.5rem;
+    }
+    .hero-offers{
+      width:100%;
+      margin-inline:auto;
+      justify-content:center;
+      /* Two 15em cards + 1.4em gap = 31.4em wide. Divide the available
+         row width by a hair more so the pair fills the screen with a
+         small safety margin (still never restacks), capped for tablets. */
+      font-size:min(calc((100vw - 2*var(--pad-x)) / 32.6), 22px);
+    }
+  }
+
+  /* Header: shrink the brand + auth buttons so they never overflow. */
+  @media (max-width:560px){
+    .site-header .container{min-height:64px;}
+    .logo{font-size:1.05rem;gap:7px;}
+    .logo svg{width:20px;height:20px;}
+    .btn{padding:.55em 1em;font-size:.85rem;}
+    .auth{gap:8px;}
+  }
+</style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="logo" href="#" aria-label="AimHigh home">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 2 3 21l9-5 9 5L12 2Z" fill="#ffc01e"/>
+        </svg>
+        <span>AIM<b>HIGH</b></span>
+      </a>
+
+      <nav class="auth" aria-label="Account">
+        <a class="btn btn-ghost" href="#signin">Sign In</a>
+        <a class="btn btn-primary" href="#signup">Sign Up</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+
+        <div class="hero-copy">
+          <p class="eyebrow">Bet Big. Aim High</p>
+          <h1 class="hero-title">Pick Your Welcome Offer</h1>
+          <p class="disclaimer">18+ | T&amp;Cs Apply | Play Responsibly</p>
+        </div>
+
+        <div class="hero-offers">
+          <article class="offer-card">
+            <div class="offer-media">
+              <img src="https://highbet-18764172.springbuilder.site/fs/userFiles-v2/highbet-18764172/media/casino-welcome-offer-1788260558772.png?1788260559584" alt="Casino welcome offer" loading="lazy">
+            </div>
+            <div class="offer-body">
+              <h2 class="offer-head">
+                <span class="offer-cat">Casino</span>
+                <span class="offer-title">Welcome Offer</span>
+              </h2>
+              <p class="offer-desc">Get 560 Cash Spins On Big Bass Splash</p>
+              <a class="offer-btn" href="https://www.highbet.co.uk/promotions/casino-welcome-offer?accounts=%2A&register=%2A">Get Offer</a>
+            </div>
+          </article>
+
+          <article class="offer-card">
+            <div class="offer-media">
+              <img src="https://highbet-18764172.springbuilder.site/fs/userFiles-v2/highbet-18764172/media/sports-welcome-offer-17882605587954.png?1788260562847" alt="Sports welcome offer" loading="lazy">
+            </div>
+            <div class="offer-body">
+              <h2 class="offer-head">
+                <span class="offer-cat">Sport</span>
+                <span class="offer-title">Welcome Offer</span>
+              </h2>
+              <p class="offer-desc">Bet £10 Get Up To £60 In Free Bets</p>
+              <a class="offer-btn" href="https://www.highbet.co.uk/promotions/sports-welcome-offer?accounts=%2A&register=%2A">Get Offer</a>
+            </div>
+          </article>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+</body>
+</html>
