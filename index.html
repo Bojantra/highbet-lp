@@ -783,104 +783,75 @@
   .footer-rows :where(p,li,a,h6){font-family:inherit;}
 
   .footer-main{
-    max-width:1080px;
+    max-width:1120px;
     margin:0 auto;
-    padding:48px 24px 40px;
+    padding:52px 24px 34px;
     display:grid;
-    grid-template-columns:repeat(3,minmax(0,1fr));
-    gap:40px;
+    grid-template-columns:1.9fr 1fr 1fr;
+    gap:48px;
     align-items:start;
   }
   .footer-logo-block{
     display:flex;
     flex-direction:column;
-    gap:16px;
+    gap:18px;
+    max-width:470px;
   }
   .footer-logo-block img{
-    width:180px;
-    max-width:70%;
+    width:188px;
+    max-width:60%;
     height:auto;
   }
-  .footer-heading{
+  .footer-about{
     font-size:12px;
+    line-height:1.85;
+    color:rgba(255, 255, 255, 0.884);
+  }
+  .footer-about p+p{margin-top:8px;}
+  .footer-about a{color:rgba(255,255,255,.75);}
+  .footer-heading{
+    font-size:15px;
     font-weight:700;
-    letter-spacing:.08em;
-    text-transform:uppercase;
     color:#fff;
-    margin-bottom:14px;
+    margin-bottom:18px;
   }
   .footer-nav{
     list-style:none;
     display:flex;
     flex-direction:column;
-    gap:11px;
+    gap:14px;
   }
   .footer-link{
-    color:rgba(255,255,255,.7);
+    color:rgba(255,255,255,.62);
     text-decoration:none;
-    font-size:13px;
+    font-size:14px;
     transition:color .15s ease;
   }
-  .footer-link:hover{color:#fff;text-decoration:underline;}
+  .footer-link:hover{color:#fff;}
 
-  .footer-badges-row{
+  .footer-divider{
+    width:calc(100% - 48px);
+    max-width:1072px;
+    margin:0 auto;
+    border:0;
     border-top:1px solid rgba(255,255,255,.12);
+  }
+
+  .footer-strip{
+    max-width:1120px;
+    margin:0 auto;
     padding:26px 24px;
-  }
-  .footer-badges-logos{
-    max-width:620px;
-    margin:0 auto;
     display:flex;
     flex-wrap:wrap;
     align-items:center;
     justify-content:center;
-    gap:24px 40px;
+    gap:24px 56px;
   }
-  .footer-badges-logos img{
-    height:auto;
-    max-height:44px;
-    max-width:120px;
-    width:auto;
-    opacity:.85;
-    transition:opacity .15s ease;
-  }
-  .footer-badges-logos a:hover img{opacity:1;}
-
-  .footer-payments-row{
-    border-top:1px solid rgba(255,255,255,.12);
-    padding:24px;
-    
-  }
-  .footer-payments{
-    max-width:960px;
-    margin:0 auto;
-    
-    display:flex;
-    flex-wrap:wrap;
-    align-items:center;
-    justify-content:center;
-    gap:50px;
-  }
-  .footer-payments img{
-    height:60px;
-    width:auto;
-    opacity:.9;
-  }
-
-  .footer-copy-row{
-    border-top:1px solid rgba(255,255,255,.12);
-    padding:24px;
-    background:#081a3f;
-  }
-  .footer-copy{
-    max-width:1100px;
-    margin:0 auto;
-    font-size:11.5px;
-    line-height:1.75;
-    color:rgba(255,255,255,.5);
-  }
-  .footer-copy p+p{margin-top:10px;}
-  .footer-copy a{color:rgba(255,255,255,.78);}
+  .footer-strip img{width:auto;transition:opacity .15s ease;}
+  .footer-payments-strip img{height:42px;opacity:.9;}
+  .footer-badges-strip{padding-top:6px;padding-bottom:40px;gap:22px 60px;}
+  .footer-badges-strip img{height:38px;opacity:.72;}
+  .footer-strip a:hover img,.footer-strip img:hover{opacity:1;}
 
   /* ── Imported-section responsive ── */
   @media (max-width:768px){
@@ -924,17 +895,15 @@
       gap:32px;
       padding:40px 20px 32px;
     }
-    .footer-logo-block{grid-column:1 / -1;}
+    .footer-logo-block{grid-column:1 / -1;max-width:none;}
   }
   @media (max-width:600px){
-    .footer-main{grid-template-columns:1fr;gap:28px;text-align:center;}
-    .footer-logo-block{align-items:center;}
-    .footer-nav{align-items:center;}
-    .footer-badges-row,.footer-payments-row,.footer-copy-row{padding:22px 16px;}
-    .footer-badges-logos{gap:16px 22px;}
-    .footer-badges-logos img{max-height:32px;max-width:84px;}
-    .footer-payments{gap:14px 18px;}
-    .footer-payments img{height:22px;}
+    .footer-main{grid-template-columns:1fr;gap:28px;}
+    .footer-nav{gap:12px;}
+    .footer-strip{gap:20px 32px;padding:22px 16px;}
+    .footer-payments-strip img{height:26px;}
+    .footer-badges-strip{padding-bottom:32px;}
+    .footer-badges-strip img{height:26px;}
     .key-terms-grid{grid-template-columns:repeat(2,1fr);}
   }
   @media (max-width:400px){
@@ -1199,47 +1168,7 @@
           </ul>
         </div>
 
-        <div class="key-terms-block">
-          <h3>Key Terms — Please Read Before Opting In</h3>
-          <div class="key-terms-grid">
-            <div class="key-term-card">
-              <div class="key-term-label">Free bets are</div>
-              <div class="key-term-value">Non-withdrawable</div>
-            </div>
-            <div class="key-term-card">
-              <div class="key-term-label">Free bet stakes are</div>
-              <div class="key-term-value">Not included in returns</div>
-            </div>
-            <div class="key-term-card">
-              <div class="key-term-label">Max payout per free bet</div>
-              <div class="key-term-value">Max Bet £60</div>
-            </div>
-            <div class="key-term-card">
-              <div class="key-term-label">Free bets expire</div>
-              <div class="key-term-value">7 days after the qualifying bet</div>
-            </div>
-            <div class="key-term-card">
-              <div class="key-term-label">Deposit method</div>
-              <div class="key-term-value"> Debit Card only</div>
-            </div>
-            <div class="key-term-card">
-              <div class="key-term-label">BetBuilder &amp; Cash Out</div>
-              <div class="key-term-value">Bets do not qualify</div>
-            </div>
-            <div class="key-term-card">
-              <div class="key-term-label">Only one Welcome Offer</div>
-              <div class="key-term-value">Sports or Casino, not both</div>
-            </div>
-            <div class="key-term-card">
-              <div class="key-term-label">Free bets</div>
-              <div class="key-term-value">Cannot be used in Casino</div>
-            </div>
-            <div class="key-term-card">
-              <div class="key-term-label">New customers only</div>
-              <div class="key-term-value">Existing accounts not eligible</div>
-            </div>
-          </div>
-        </div>
+        
 
         <details class="terms-accordion">
           <summary>Sports Welcome Offer — Terms &amp; Conditions</summary>
@@ -1323,18 +1252,34 @@
         <a href="https://www.highbet.co.uk">
           <img src="https://promo.highbet.com/img/images/Highbet-Logo.png" alt="Highbet">
         </a>
+        <div class="footer-about">
+          <p>
+            Highbet.co.uk is operated by SCGO Limited, a company registered in Malta
+            (registration number C45929), with its registered address at Luxe Pavilion, 2nd Level,
+            Diamonds International Building, Portomaso, St Julian's STJ 4010, Malta. SCGO Limited is
+            licensed and regulated by the UK Gambling Commission for the provision of gambling
+            services to customers in Great Britain (UKGC account number 44662).
+          </p>
+          <p>Under-18s are strictly forbidden from gambling on this website. Underage gambling is an offence.</p>
+          <p>
+            © Highbet.co.uk 2026. Highbet is committed to safer gambling and to raising awareness of
+            problem gambling, including its prevention, intervention and treatment. Gambling can be
+            addictive — please play responsibly. For advice and support, visit
+            <a href="https://www.begambleaware.org/" target="_blank" rel="noopener">www.begambleaware.org</a>.
+          </p>
+        </div>
       </div>
 
-      <div>
+      <nav class="footer-col" aria-label="Company">
         <div class="footer-heading">Company</div>
         <ul class="footer-nav">
           <li><a class="footer-link" href="https://www.highbet.co.uk/about-us" target="_blank" rel="noopener">About</a></li>
           <li><a class="footer-link" href="https://www.highbet.co.uk/casino-tcs" target="_blank" rel="noopener">Terms &amp; Conditions</a></li>
           <li><a class="footer-link" href="https://www.highbet.co.uk/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a></li>
         </ul>
-      </div>
+      </nav>
 
-      <div>
+      <nav class="footer-col" aria-label="Products">
         <div class="footer-heading">Products</div>
         <ul class="footer-nav">
           <li><a class="footer-link" href="https://www.highbet.co.uk/in-play/match/Soccer/World/573/27551033" target="_blank" rel="noopener">In Play</a></li>
@@ -1342,42 +1287,28 @@
           <li><a class="footer-link" href="https://www.highbet.co.uk/casino" target="_blank" rel="noopener">Casino</a></li>
           <li><a class="footer-link" href="https://www.highbet.co.uk/esports/match/AllESports/all/all?type=live" target="_blank" rel="noopener">E-Sports</a></li>
         </ul>
-      </div>
+      </nav>
     </div>
 
- 
+    <hr class="footer-divider">
 
-    <div class="footer-payments-row">
-      <div class="footer-payments">
-        <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-apple-pay-logo-1-1750236268859.webp?v=1750236357" alt="Apple Pay">
-        <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-g-pay-new-17613143756626.webp?v=1761314379" alt="Google Pay">
-        <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-trsulty-logo-3-17556893152738.webp?v=1755689320" alt="Trustly">
-        <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-master-card-2-17544029393907.webp?v=1754402943" alt="Mastercard">
-        <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-adyen-logo-17643983598803.webp?v=1764398384" alt="Adyen">
-        <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-visa-2-17544028449384.webp?v=1754402865" alt="Visa">
-        <a href="https://zimpler.com/" target="_blank" rel="noreferrer noopener">
-          <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-zimpler-logo-17648308890372.webp?v=1764830900" alt="Zimpler">
-        </a>
-          </div>
+    <div class="footer-strip footer-payments-strip">
+      <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-apple-pay-logo-1-1750236268859.webp?v=1750236357" alt="Apple Pay">
+      <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-g-pay-new-17613143756626.webp?v=1761314379" alt="Google Pay">
+      <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-trsulty-logo-3-17556893152738.webp?v=1755689320" alt="Trustly">
+      <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-master-card-2-17544029393907.webp?v=1754402943" alt="Mastercard">
+      <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-adyen-logo-17643983598803.webp?v=1764398384" alt="Adyen">
+      <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-visa-2-17544028449384.webp?v=1754402865" alt="Visa">
+      <a href="https://zimpler.com/" target="_blank" rel="noreferrer noopener">
+        <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-zimpler-logo-17648308890372.webp?v=1764830900" alt="Zimpler">
+      </a>
     </div>
 
-    <div class="footer-copy-row">
-      <div class="footer-copy">
-        <p>
-          Highbet.co.uk is operated by SCGO Limited, a company registered in Malta with registration
-          number C45929 and having its registered address at Luxe Pavilion, 2nd level, Diamonds
-          International Building, Portomaso, St Julian's STJ 4010, Malta. SCGO Ltd is licensed and
-          regulated by the UK Gambling Commission for provision of services to the United Kingdom
-          (UKGC Account number 44662).
-        </p>
-        <p>Under 18s are strictly forbidden from gambling on this website. Underage gambling is an offence.</p>
-        <p>
-          © Highbet.co.uk 2024 | Highbet is committed to endorsing safer gambling among its customers
-          as well as promoting the awareness of problem gambling and improving prevention, intervention
-          and treatment. Gambling can be addictive, please play responsibly. For further information
-          contact <a href="https://www.begambleaware.org/" target="_blank" rel="noopener">www.begambleaware.org</a>.
-        </p>
-      </div>
+    <div class="footer-strip footer-badges-strip">
+      <img src="https://www.highbet.co.uk/fs/userFiles-v2/highbet-18764172/images/5078-gamble-aware-26-17740193873168.webp?v=1774019390" alt="GambleAware">
+      <img src="https://www.highbet.co.uk/fs/userFiles-v2/highbet-18764172/images/5078-gamcare-org-uk-26-17740193459785.webp?v=1774019350" alt="GamCare">
+      <img src="https://www.highbet.co.uk/fs/userFiles-v2/highbet-18764172/images/5078-gambling-commission-26-17740193828035.webp?v=1774019403" alt="Gambling Commission">
+      <img src="https://www.highbet.co.uk/fs/userFiles-v2/highbet-18764172/images/5078-gamstop-26-1774019331723.webp?v=1774019335" alt="GAMSTOP">
     </div>
 
   </footer>
