@@ -271,7 +271,8 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    gap: 10rem;
+    gap: 6rem;
+    margin-top: 2rem;
     width: 100%;
   }
   /* Copy block: a frosted-glass panel over the artwork, bottom-left.
@@ -439,6 +440,8 @@
       align-items:center;
       justify-content:center;
       text-align:start;
+          margin-top: 0rem;
+
     }
     .hero-inner{
         gap:0rem
@@ -482,6 +485,16 @@
     font-weight:700;
     font-family:var(--hb-font);
     letter-spacing:1px;
+  }
+  .gradient-bar p{
+    display:inline-flex;
+    align-items:center;
+    gap:.55em;
+  }
+  .gradient-bar svg{
+    width:1.35em;
+    height:1.35em;
+    flex-shrink:0;
   }
 
   /* ════════════════════════════
@@ -758,88 +771,116 @@
   .terms-content li{margin-bottom:5px;}
 
   /* ════════════════════════════
-     FOOTER (from Highbet)
+     FOOTER
   ════════════════════════════ */
   .footer-rows{
     background:#0a1f4a;
     color:#fff;
-    font-size:12px;
+    font-size:13px;
+    /* small footer text reads badly in the display faces — use a plain sans */
+    font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
   }
+  .footer-rows :where(p,li,a,h6){font-family:inherit;}
+
   .footer-main{
-    max-width:1600px;
+    max-width:1080px;
     margin:0 auto;
-    padding:32px 20px 28px;
+    padding:48px 24px 40px;
     display:grid;
-    grid-template-columns:minmax(0,2.1fr) repeat(3,minmax(0,1.2fr));
-    gap:32px;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:40px;
+    align-items:start;
   }
   .footer-logo-block{
     display:flex;
     flex-direction:column;
-    gap:14px;
+    gap:16px;
   }
   .footer-logo-block img{
-    max-width:240px;
-    width:100%;
+    width:180px;
+    max-width:70%;
     height:auto;
-    display:block;
   }
   .footer-heading{
-    font-size:14px;
+    font-size:12px;
     font-weight:700;
-    margin-bottom:10px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:#fff;
+    margin-bottom:14px;
   }
   .footer-nav{
     list-style:none;
-    padding:0;
-    margin:0;
     display:flex;
     flex-direction:column;
-    gap:6px;
+    gap:11px;
   }
   .footer-link{
-    color:#fff;
+    color:rgba(255,255,255,.7);
     text-decoration:none;
     font-size:13px;
+    transition:color .15s ease;
   }
-  .footer-link:hover{text-decoration:underline;}
+  .footer-link:hover{color:#fff;text-decoration:underline;}
+
   .footer-badges-row{
-    background:#091f4a;
-    padding:24px 16px 30px;
+    border-top:1px solid rgba(255,255,255,.12);
+    padding:26px 24px;
   }
   .footer-badges-logos{
-    max-width:700px;
+    max-width:620px;
     margin:0 auto;
     display:flex;
     flex-wrap:wrap;
+    align-items:center;
     justify-content:center;
-    gap:16px;
+    gap:24px 40px;
   }
-  .footer-badges-logos img{max-height:50px;width:auto;}
+  .footer-badges-logos img{
+    height:auto;
+    max-height:44px;
+    max-width:120px;
+    width:auto;
+    opacity:.85;
+    transition:opacity .15s ease;
+  }
+  .footer-badges-logos a:hover img{opacity:1;}
+
   .footer-payments-row{
-    background:#091f4a;
-    padding:18px 16px 28px;
+    border-top:1px solid rgba(255,255,255,.12);
+    padding:24px;
+    
   }
   .footer-payments{
-    max-width:1200px;
+    max-width:960px;
     margin:0 auto;
+    
     display:flex;
     flex-wrap:wrap;
+    align-items:center;
     justify-content:center;
-    gap:10px 16px;
+    gap:50px;
   }
-  .footer-payments img{max-height:45px;width:auto;}
+  .footer-payments img{
+    height:60px;
+    width:auto;
+    opacity:.9;
+  }
+
   .footer-copy-row{
-    background:#0a1f4a;
-    padding:22px 16px 28px;
+    border-top:1px solid rgba(255,255,255,.12);
+    padding:24px;
+    background:#081a3f;
   }
   .footer-copy{
-    max-width:1500px;
+    max-width:1100px;
     margin:0 auto;
-    font-size:12px;
-    line-height:1.6;
+    font-size:11.5px;
+    line-height:1.75;
+    color:rgba(255,255,255,.5);
   }
-  .footer-copy a{color:#fff;}
+  .footer-copy p+p{margin-top:10px;}
+  .footer-copy a{color:rgba(255,255,255,.78);}
 
   /* ── Imported-section responsive ── */
   @media (max-width:768px){
@@ -851,6 +892,7 @@
       gap:16px;
       max-width:380px;
     }
+   
     .steps-row::before{display:none;}
     .step-item{
       flex-direction:row;
@@ -877,10 +919,22 @@
   }
 
   @media (max-width:900px){
-    .footer-main{grid-template-columns:repeat(2,minmax(0,1fr));}
+    .footer-main{
+      grid-template-columns:1fr 1fr;
+      gap:32px;
+      padding:40px 20px 32px;
+    }
+    .footer-logo-block{grid-column:1 / -1;}
   }
   @media (max-width:600px){
-    .footer-main{grid-template-columns:1fr;gap:24px;}
+    .footer-main{grid-template-columns:1fr;gap:28px;text-align:center;}
+    .footer-logo-block{align-items:center;}
+    .footer-nav{align-items:center;}
+    .footer-badges-row,.footer-payments-row,.footer-copy-row{padding:22px 16px;}
+    .footer-badges-logos{gap:16px 22px;}
+    .footer-badges-logos img{max-height:32px;max-width:84px;}
+    .footer-payments{gap:14px 18px;}
+    .footer-payments img{height:22px;}
     .key-terms-grid{grid-template-columns:repeat(2,1fr);}
   }
   @media (max-width:400px){
@@ -967,9 +1021,28 @@
 
     <!-- ══ LICENSE / FEATURE BAR ══ -->
     <div class="gradient-bar" style="white-space: nowrap">
-      <p>🔐 UK LICENSED</p>
-      <p>🔨 BET BUILDER</p>
-      <p>⚡ ACCA BOOST</p>
+      <p>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 3 5 6v5c0 4.4 2.9 7.9 7 9 4.1-1.1 7-4.6 7-9V6l-7-3Z"/>
+          <path d="m9 12 2 2 4-4"/>
+        </svg>
+        UK LICENSED
+      </p>
+      <p>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>
+          <path d="M8 12h.01"/>
+          <path d="M12 12h.01"/>
+          <path d="M16 12h.01"/>
+        </svg>
+        LIVE CHAT
+      </p>
+      <p>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M13 2 4.5 13.5H11l-1 8.5L19.5 10.5H13V2Z"/>
+        </svg>
+        FAST WITHDRAWALS
+      </p>
     </div>
 
     <!-- ══ SECTION: IT'S EASY TO START ══ -->
@@ -1028,102 +1101,81 @@
     <!-- ══ SECTION: CASINO WELCOME OFFER ══ -->
     <section class="sports-offer">
       <div class="sports-offer-inner">
-        <h2>Highbet Casino Welcome Offer</h2>
+        <h2>Highbet Casino <br> Welcome Offer</h2>
         <p class="sports-offer-intro">
-          Make your first deposit of £10 or more and receive 50 Cash Spins on Big Bass
-          Splash. Cash Spins are played at a fixed stake and any winnings are added to
-          your balance, subject to the promotion terms below.
+          Opt in, make your first deposit of £20 or more by debit card and wager it on
+          qualifying slots to receive up to 250 Wager-Free Free Spins on Big Bass Splash.
+          The number of Free Spins depends on your deposit tier, and winnings from the
+          Free Spins are paid as real cash with no wagering requirements.
         </p>
 
         <div class="qualify-block">
           <h3>How to Qualify</h3>
           <ul class="qualify-list">
-            <li>Opt in to this promotion and make your first deposit via Debit Card only (no e-wallets or credit cards).</li>
-            <li>Deposit a minimum of £10 in a single transaction within 7 days of registering.</li>
-            <li>50 Cash Spins on Big Bass Splash are credited once your qualifying deposit clears.</li>
-            <li>Cash Spins are subject to a wagering requirement and an expiry period — read the full terms below before opting in.</li>
+            <li>Opt in to this promotion and make your first deposit within 7 days of registering.</li>
+            <li>Deposit a minimum of £20 in a single transaction using a debit card (no e-wallets or credit cards). The offer is tiered by deposit amount.</li>
+            <li>Wager your deposit amount in real money on any qualifying slot game on the same calendar day the deposit is made.</li>
+            <li>Free Spins are awarded by deposit tier: £20 = 50 Free Spins, £50 = 150, £100 = 200, £200 = 250 Free Spins.</li>
+            <li>If you stake more than your chosen tier requires, you still receive only the maximum Free Spins for the tier you deposited into.</li>
+            <li>Free Spins are credited within 24 hours of the qualifying wager being completed and must be manually claimed in the Bonuses section of your account.</li>
           </ul>
         </div>
 
-        <div class="key-terms-block">
-          <h3>Key Terms — Please Read Before Opting In</h3>
-          <div class="key-terms-grid">
-            <div class="key-term-card">
-              <div class="key-term-label">Reward</div>
-              <div class="key-term-value">50 Cash Spins</div>
-            </div>
-            <div class="key-term-card">
-              <div class="key-term-label">Eligible game</div>
-              <div class="key-term-value">Big Bass Splash</div>
-            </div>
-            <div class="key-term-card">
-              <div class="key-term-label">Min. deposit</div>
-              <div class="key-term-value">£10</div>
-            </div>
-            <div class="key-term-card">
-              <div class="key-term-label">Deposit method</div>
-              <div class="key-term-value">Debit Card only</div>
-            </div>
-            <div class="key-term-card">
-              <div class="key-term-label">Spin value, wagering &amp; expiry</div>
-              <div class="key-term-value">See full terms</div>
-            </div>
-            <div class="key-term-card">
-              <div class="key-term-label">Cash Spins winnings</div>
-              <div class="key-term-value">Added to your balance</div>
-            </div>
-            <div class="key-term-card">
-              <div class="key-term-label">Only one Welcome Offer</div>
-              <div class="key-term-value">Casino or Sports, not both</div>
-            </div>
-            <div class="key-term-card">
-              <div class="key-term-label">Cash Spins</div>
-              <div class="key-term-value">Cannot be used on Sports</div>
-            </div>
-            <div class="key-term-card">
-              <div class="key-term-label">New customers only</div>
-              <div class="key-term-value">Existing accounts not eligible</div>
-            </div>
-          </div>
-        </div>
+        
 
         <details class="terms-accordion">
           <summary>Casino Welcome Offer — Terms &amp; Conditions</summary>
           <div class="terms-content">
-            <p><strong>Placeholder — replace with the official Casino Welcome Offer terms.</strong> The structure below mirrors the Sports terms; drop the legal copy into each section.</p>
-
-            <h4>Promotion Period</h4>
-            <p>[Add the promotion start date/time and duration.]</p>
+            <p>The following are the customer-facing Terms &amp; Conditions for the Casino Welcome Offer — Up to 250 Wager-Free Free Spins.</p>
+            <p>Highbet.co.uk is operated by SGSG Limited, registered in Malta (C.45926), licensed and regulated by the UK Gambling Commission for customers in Great Britain (account no. 44922). BeGambleAware.org.</p>
 
             <h4>Eligibility</h4>
             <ul>
-              <li>New verified customers only.</li>
-              <li>UK residents.</li>
-              <li>Customers aged 18 years or over.</li>
+              <li>Customers who opt in to the promotion and make their first deposit within 7 days of registering are eligible to participate.</li>
+              <li>This offer is available to new UK customers only, aged 18 or over, whose account is fully verified (ID and proof of address).</li>
+              <li>Each customer may claim this offer only once.</li>
+              <li>Only one Welcome Offer may be claimed per customer. Customers may choose either the Sport Welcome Offer or the Casino Welcome Offer, but not both. If a customer opts in and qualifies for one of the offers, they will be automatically excluded from claiming the other.</li>
             </ul>
-
-            <h4>Opt-In Requirement</h4>
-            <p>Customers must opt in to this promotion before making the qualifying deposit, within 7 days of registration.</p>
 
             <h4>How to Qualify</h4>
             <ul>
-              <li>Min. deposit amount: £10 in a single transaction.</li>
-              <li>Deposit method: Debit Card only.</li>
-              <li>[Add any minimum play / wager requirement before spins are released.]</li>
+              <li>Make a minimum deposit of £20 in a single transaction using a debit card. The offer is tiered by deposit amount.</li>
+              <li>Wager your deposit amount in real money on any qualifying slot game on the same calendar day the deposit is made.</li>
+              <li>Free Spins are awarded by deposit tier: deposit £20 to receive 50 Free Spins; £50 to receive 150 Free Spins; £100 to receive 200 Free Spins; or £200 to receive 250 Free Spins.</li>
+              <li>If you stake more than the amount required for your chosen tier, you will still receive only the maximum number of Free Spins for the tier you deposited into.</li>
+              <li>Free Spins will be credited within 24 hours after the qualifying wager has been completed.</li>
             </ul>
 
-            <h4>Cash Spins Details</h4>
-            <p>[Add: number of spins (50), eligible game (Big Bass Splash), stake per spin, how winnings are paid, wagering requirement, maximum win, and expiry.]</p>
+            <h4>Free Spins Conditions</h4>
+            <ul>
+              <li>Amount: 50 / 150 / 200 / 250 Free Spins, depending on your qualifying deposit tier.</li>
+              <li>Game: Big Bass Splash.</li>
+              <li>Spin value: £0.10 per spin.</li>
+              <li>Wager-free: winnings from the Free Spins are credited as real cash and are not subject to any wagering requirements.</li>
+              <li>Free Spins are non-withdrawable in unplayed form.</li>
+              <li>Free Spins must be manually claimed in the Bonuses section of your account.</li>
+              <li>Free Spins must be used within 7 days of being credited. Any unused Free Spins will expire after this period.</li>
+            </ul>
+
+            <h4>Exclusions &amp; Restrictions</h4>
+            <ul>
+              <li>Wagers placed on Crash games, Table games, or Live Casino games do not qualify for this promotion. This promotion is valid on slots only.</li>
+              <li>Deposits must be made using a debit card. E-wallets and credit cards are not eligible.</li>
+              <li>This offer is limited to one per person, household, IP address, email, physical address, and device.</li>
+              <li>This offer is not available to customers who have self-excluded, including via GAMSTOP.</li>
+              <li>Some customers may be ineligible to join this promotion due to profile or account restrictions.</li>
+              <li>This offer cannot be combined with any other promotion.</li>
+            </ul>
 
             <h4>General Terms</h4>
             <ul>
-              <li>Only one Welcome Offer may be claimed per customer. Customers may choose either the Casino Welcome Offer or the Sport Welcome Offer, but not both.</li>
-              <li>Cash Spins and any winnings from them cannot be used on Sports.</li>
-              <li>This Welcome Offer cannot be used in conjunction with any other promotion.</li>
-              <li>The Company reserves the right acting reasonably to withhold, restrict or cancel this offer from account holders in breach of these terms or our General Promotion Terms.</li>
-              <li>Highbet's General Terms &amp; Conditions, including General Promotion Terms and Games Rules, apply.</li>
-              <li>[Add withdrawal restrictions and any excluded game features.]</li>
+              <li>By accepting and receiving the Free Spins, you confirm that you have read and agreed to the promotion's Terms &amp; Conditions.</li>
+              <li>The Free Spins are subject to Highbet's General Terms &amp; Conditions and General Promotion Terms.</li>
+              <li>The Company reserves the right to change, suspend, or cancel the promotion at any time for legal, regulatory, or operational reasons.</li>
+              <li>In cases of fraud, abuse, or breach of these terms, Highbet may withhold or cancel bonuses at its discretion.</li>
             </ul>
+
+            <p>18+. Please gamble responsibly. Set your limits. For support and advice visit <a href="https://www.begambleaware.org/" target="_blank" rel="noopener">BeGambleAware.org</a>.</p>
           </div>
         </details>
       </div>
@@ -1132,12 +1184,9 @@
     <!-- ══ SECTION: SPORTS WELCOME OFFER ══ -->
     <section class="sports-offer">
       <div class="sports-offer-inner">
-        <h2>Highbet Sports Welcome Offer</h2>
+        <h2>Highbet Sports <br> Welcome Offer</h2>
         <p class="sports-offer-intro">
-          Make your first deposit of £10 and place a qualifying bet on any sport. Once
-          settled, you'll receive £30 in free bets — split across three sport-specific
-          tokens of £10 each. Free bets are non-withdrawable and each carries individual
-          restrictions on minimum odds and selections.
+          Deposit £10 and place a qualifying sports bet to receive £30 in Free Bets (3 x £10). If each qualifying Free Bet wins, you'll unlock the next £10 Free Bet, giving you the chance to earn up to an additional £30 in Free Bets. All Free Bets are non-withdrawable, valid for 7 days, and subject to the promotion's full Terms & Conditions.
         </p>
 
         <div class="qualify-block">
@@ -1163,15 +1212,15 @@
             </div>
             <div class="key-term-card">
               <div class="key-term-label">Max payout per free bet</div>
-              <div class="key-term-value">£100</div>
+              <div class="key-term-value">Max Bet £60</div>
             </div>
             <div class="key-term-card">
               <div class="key-term-label">Free bets expire</div>
               <div class="key-term-value">7 days after the qualifying bet</div>
             </div>
             <div class="key-term-card">
-              <div class="key-term-label">Debit Card only</div>
-              <div class="key-term-value">No e-wallets or credit cards</div>
+              <div class="key-term-label">Deposit method</div>
+              <div class="key-term-value"> Debit Card only</div>
             </div>
             <div class="key-term-card">
               <div class="key-term-label">BetBuilder &amp; Cash Out</div>
@@ -1213,7 +1262,7 @@
             <h4>How to Qualify</h4>
             <ul>
               <li>Min. deposit amount: £10 in a single transaction.</li>
-              <li>Deposit method: Debit Card only.</li>
+              <li>Deposit: Debit Card only.</li>
               <li>Min. stake amount: £10 with real money in one bet within 7 days of your registration.</li>
               <li>Sport: All sports.</li>
               <li>Market: Any market (single or multiple / pre-match or in-play/live).</li>
@@ -1229,22 +1278,21 @@
             <p>The free bet amount shall be credited to your account after the settlement of your qualifying bets. In the case that there are multiple bets qualifying for this promotion, the free bets will be granted when the first one is settled.</p>
 
             <h4>Using Your Free Bets</h4>
-            <p>Upon settlement of your qualifying bet, three (3) Free Bet Tokens (Kick Off Tokens) with a total value of £30 will be credited to your account regardless of the outcome of your qualifying bet. The Free Bet Tokens must be used within 7 days of being awarded.</p>
+            <p>Upon settlement of your qualifying bet, three (3) Free Bet Tokens (Kick off Tokens) with a total value of £30 regardless of the outcome of your qualifying bet. The Free bet token will be credited to your account and must be used within 7 days of being awarded.</p>
             <p>The three tokens are credited together as follows:</p>
             <ul>
-              <li>Free bet value: £30 (3 x £10).</li>
-              <li>Pro Token – £10 Acca – min odds 4.0 – min 4+ legs – min odds per selection 1.30</li>
-              <li>Elite Token – £10 Acca – min odds 4.0 – min 4+ legs – min odds per selection 1.30</li>
-              <li>Champion Token – £10 Acca – min odds 4.0 – min 4+ legs – min odds per selection 1.30</li>
+              <li>Free bet value: £30 (3x £10).</li>
+              <li>Pro Token - £10 Acca – min odds 4.0 – min 4+ legs - min odds per selection 1.30</li>
+              <li>Elite Token - £10 Acca – min odds 4.0 – min 4+ legs - min odds per selection 1.30</li>
+              <li>Champion Token - £10 Acca – min odds 4.0 – min 4+ legs - min odds per selection 1.30</li>
             </ul>
 
-            <h4>Using Your Free Bet</h4>
+            <h4>Using your Free Bet</h4>
             <ul>
               <li>If any of the initial Free Bet Tokens ("Kick Off Tokens") settles as a winning bet, you will be credited with one (1) £10 Free Bet Token ("Pro Token") after all Kick Off Tokens have expired.</li>
               <li>If the Pro Token settles as a winning bet, you will be credited with one (1) £10 Free Bet Token ("Elite Token") after the Pro Token has expired.</li>
               <li>If the Elite Token settles as a winning bet, you will be credited with one (1) £10 Free Bet Token ("Champion Token") after the Elite Token has expired.</li>
-              <li>The Pro Token, Elite Token and Champion Token are subject to no minimum odds or minimum selection (leg) requirements.</li>
-              <li>Each Pro Token, Elite Token and Champion Token has a maximum payout of £100 and must be used within seven (7) days of being credited to your betting account.</li>
+              <li>Each Pro Token, Elite Token and Champion Token has a maximum payout of £60 and must be used within seven (7) days of being credited to your betting account.</li>
               <li>Free Bet Tokens have no cash value and cannot be exchanged for cash or withdrawn.</li>
             </ul>
 
@@ -1269,114 +1317,69 @@
 
   <!-- ══ FOOTER ══ -->
   <footer class="footer-rows">
+
     <div class="footer-main">
       <div class="footer-logo-block">
         <a href="https://www.highbet.co.uk">
-          <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/8924-highbet-logo-17350306865589.svg?v=1758527146" alt="Highbet logo">
+          <img src="https://promo.highbet.com/img/images/Highbet-Logo.png" alt="Highbet">
         </a>
       </div>
 
       <div>
-        <div class="footer-heading">ABOUT</div>
+        <div class="footer-heading">Company</div>
         <ul class="footer-nav">
-          <li><a class="footer-link" href="https://www.highbet.co.uk/about-us">About Us</a></li>
-          <li><a class="footer-link" href="https://www.highbet.co.uk/contact-us">Contact Us</a></li>
-          <li><a class="footer-link" href="https://affiliatepark.com/">Affiliate Program</a></li>
-          <li><a class="footer-link" href="https://www.highbet.co.uk/faq">FAQ</a></li>
+          <li><a class="footer-link" href="https://www.highbet.co.uk/about-us" target="_blank" rel="noopener">About</a></li>
+          <li><a class="footer-link" href="https://www.highbet.co.uk/casino-tcs" target="_blank" rel="noopener">Terms &amp; Conditions</a></li>
+          <li><a class="footer-link" href="https://www.highbet.co.uk/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a></li>
         </ul>
       </div>
 
       <div>
-        <div class="footer-heading">TERMS AND PRIVACY</div>
+        <div class="footer-heading">Products</div>
         <ul class="footer-nav">
-          <li><a class="footer-link" href="https://www.highbet.co.uk/responsible-gambling">Responsible Gambling</a></li>
-          <li><a class="footer-link" href="https://www.highbet.co.uk/bonus-terms-and-conditions">Bonus Terms and Conditions</a></li>
-          <li><a class="footer-link" href="https://www.highbet.co.uk/sportsbook-rules">Sportsbook Rules</a></li>
-          <li><a class="footer-link" href="https://www.highbet.co.uk/bet-builder-rules">Bet Builder Rules</a></li>
-          <li><a class="footer-link" href="https://www.highbet.co.uk/games-rules">Games Rules</a></li>
-          <li><a class="footer-link" href="https://www.highbet.co.uk/general-terms-and-conditions">General Terms and Conditions</a></li>
-        </ul>
-      </div>
-
-      <div>
-        <div class="footer-heading">SCORES &amp; RESULTS</div>
-        <ul class="footer-nav">
-          <li><a class="footer-link" href="https://www.highbet.co.uk/live-calendar">Live Calendar</a></li>
-          <li><a class="footer-link" href="https://www.highbet.co.uk/results">Results</a></li>
-        </ul>
-        <div class="footer-heading" style="margin-top: 14px">PRODUCTS</div>
-        <ul class="footer-nav">
-          <li><a class="footer-link" href="https://www.highbet.co.uk/in-play">In Play</a></li>
-          <li><a class="footer-link" href="https://www.highbet.co.uk/sports">Prematch</a></li>
-          <li><a class="footer-link" href="https://www.highbet.co.uk/casino">Casino</a></li>
-          <li><a class="footer-link" href="https://www.highbet.co.uk/live-casino">Live Casino</a></li>
+          <li><a class="footer-link" href="https://www.highbet.co.uk/in-play/match/Soccer/World/573/27551033" target="_blank" rel="noopener">In Play</a></li>
+          <li><a class="footer-link" href="https://www.highbet.co.uk/prematch/match/Soccer/select-leagues" target="_blank" rel="noopener">Prematch</a></li>
+          <li><a class="footer-link" href="https://www.highbet.co.uk/casino" target="_blank" rel="noopener">Casino</a></li>
+          <li><a class="footer-link" href="https://www.highbet.co.uk/esports/match/AllESports/all/all?type=live" target="_blank" rel="noopener">E-Sports</a></li>
         </ul>
       </div>
     </div>
 
-    <div class="footer-badges-row">
-      <div class="footer-badges-logos">
-        <a href="https://ibia.bet/" target="_blank" rel="noreferrer noopener">
-          <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5078-ibia-2-17544035190661.webp?v=1754403522" alt="IBIA">
-        </a>
-        <a href="https://www.mga.org.mt/" target="_blank" rel="noreferrer noopener">
-          <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5078-mga-3-17544033478955.webp?v=1754403352" alt="MGA">
-        </a>
-        <a href="https://www.gambleaware.org/" target="_blank" rel="noreferrer noopener">
-          <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5078-gamble-aware-2-17544031977546.webp?v=1754403201" alt="BeGambleAware">
-        </a>
-        <a href="https://madre-online.eu/" target="_blank" rel="noreferrer noopener">
-          <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5078-madre-17486903201425.webp?v=1748690323" alt="MADRE">
-        </a>
-      </div>
-    </div>
+ 
 
     <div class="footer-payments-row">
       <div class="footer-payments">
         <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-apple-pay-logo-1-1750236268859.webp?v=1750236357" alt="Apple Pay">
         <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-g-pay-new-17613143756626.webp?v=1761314379" alt="Google Pay">
         <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-trsulty-logo-3-17556893152738.webp?v=1755689320" alt="Trustly">
-        <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-unnamed-1-17715102134101.webp?v=1771570961" alt="Interac">
         <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-master-card-2-17544029393907.webp?v=1754402943" alt="Mastercard">
         <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-adyen-logo-17643983598803.webp?v=1764398384" alt="Adyen">
         <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-visa-2-17544028449384.webp?v=1754402865" alt="Visa">
         <a href="https://zimpler.com/" target="_blank" rel="noreferrer noopener">
           <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-zimpler-logo-17648308890372.webp?v=1764830900" alt="Zimpler">
         </a>
-        <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-bitcoin-3-1755689315289.webp?v=1755689320" alt="Bitcoin">
-        <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-revolut-logo-new-17492114976693.webp?v=1749211591" alt="Revolut">
-        <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-pankki-logo-new-17492114977279.webp?v=1749211591" alt="Pankki">
-        <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-danske-logo-new-17492114976751.webp?v=1749211591" alt="Danske Bank">
-        <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-rapid-new-logo-17486901467616.webp?v=1756836369" alt="Rapid">
-        <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-nordea-logo-new-17492114981262.webp?v=1749211591" alt="Nordea">
-        <img src="https://builder.spring-builder.prod.yospace.ai/fs/userFiles-v2/highbet-mga-18766698/images/5080-dp-new-logo-17492115051368.webp?v=1749211592" alt="DP">
-      </div>
+          </div>
     </div>
 
     <div class="footer-copy-row">
       <div class="footer-copy">
         <p>
-          Highbet.com&nbsp; is operated by SCGO Ltd, a company registered in Malta with
-          registration number C45929 and having its registered address at Luxe Pavilion,
-          2nd level, Diamonds International Building, Portomaso, St Julian's STJ 4010,
-          Malta. SCGO Ltd is licensed and regulated by the Malta Gaming Authority as the
-          regulatory body responsible (Gaming Service Licence No
-          <a href="https://authorisation.mga.org.mt/verification.aspx?lang=EN&amp;company=d10daec7-dde7-441a-b9ef-2666667bf4fc&amp;details=1" target="_blank" rel="noopener noreferrer">MGA/B2C/292/2015</a>,
-          granted 23 Jun 2015 and updated 01 Aug 2018).
+          Highbet.co.uk is operated by SCGO Limited, a company registered in Malta with registration
+          number C45929 and having its registered address at Luxe Pavilion, 2nd level, Diamonds
+          International Building, Portomaso, St Julian's STJ 4010, Malta. SCGO Ltd is licensed and
+          regulated by the UK Gambling Commission for provision of services to the United Kingdom
+          (UKGC Account number 44662).
         </p>
-        <p style="margin-top: 12px">
-          Under 18s are strictly forbidden from gambling on this website. Underage
-          gambling is an offence.
-        </p>
-        <p style="margin-top: 12px">
-          © Highbet.com 2026 | Highbet is committed to endorsing safer gambling among its
-          customers as well as promoting the awareness of problem gambling and improving
-          prevention, intervention and treatment. Gambling can be addictive, please play
-          responsibly. For further information on gambling addiction contact
-          <a href="http://www.begambleaware.org/" target="_blank" rel="noopener noreferrer">www.begambleaware.org</a>.
+        <p>Under 18s are strictly forbidden from gambling on this website. Underage gambling is an offence.</p>
+        <p>
+          © Highbet.co.uk 2024 | Highbet is committed to endorsing safer gambling among its customers
+          as well as promoting the awareness of problem gambling and improving prevention, intervention
+          and treatment. Gambling can be addictive, please play responsibly. For further information
+          contact <a href="https://www.begambleaware.org/" target="_blank" rel="noopener">www.begambleaware.org</a>.
         </p>
       </div>
     </div>
+
   </footer>
 
   <script>
